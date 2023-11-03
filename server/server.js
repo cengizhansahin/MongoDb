@@ -15,6 +15,18 @@ mongoose.connect(
   "mongodb+srv://admin:1234@cluster0.1b1s8ig.mongodb.net/user-app?retryWrites=true&w=majority"
 );
 
+app.put("/updateUser/:id", async (req, res) => {
+  const id = req.params.id;
+  const newUser = {
+    name: req.body.name,
+    username: req.body.username,
+    age: req.body.age,
+    img: req.body.img,
+  };
+  const updatedUser = await UserModel.findByIdAndUpdate(id, newUser);
+  res.json(updatedUser);
+});
+
 app.get("/getUsers", async (req, res) => {
   const users = await UserModel.find();
   res.json(users);

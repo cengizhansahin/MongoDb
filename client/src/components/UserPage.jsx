@@ -3,6 +3,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 function UserPage() {
   const [users, setUsers] = useState([]);
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [age, setAge] = useState("");
+  const [img, setImg] = useState("");
+
+  const updateHandle = (id) => {
+    axios
+      .put(`http://localhost:5000/updateUser/${id}`, {
+        name: name,
+        username: username,
+        age: age,
+        img: img,
+      })
+      .then((res) => console.log(res.data));
+  };
+
   const deleteHandle = (id) => {
     Swal.fire({
       title: "Emin misin?",
@@ -43,6 +59,42 @@ function UserPage() {
               <div className="card-body">
                 <h5 className="card-title">İsim: {user.name}</h5>
                 <h5>Yaş: {user.age}</h5>
+                <div>
+                  <input
+                    className="form-control my-1"
+                    placeholder="name"
+                    type="text"
+                    // value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <input
+                    className="form-control my-1"
+                    placeholder="username"
+                    type="text"
+                    // value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <input
+                    className="form-control my-1"
+                    placeholder="age"
+                    type="number"
+                    // value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                  <input
+                    className="form-control my-1"
+                    placeholder="img"
+                    type="text"
+                    // value={img}
+                    onChange={(e) => setImg(e.target.value)}
+                  />
+                  <button
+                    className="btn btn-success mb-1"
+                    onClick={() => updateHandle(user._id)}
+                  >
+                    GÜNCELLE
+                  </button>
+                </div>
                 <button
                   className="btn btn-danger"
                   onClick={() => deleteHandle(user._id)}
