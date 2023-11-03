@@ -9,21 +9,30 @@ function UserPage() {
   const [img, setImg] = useState("");
 
   const updateHandle = (id) => {
+    const updatedData = {};
+
+    if (name) {
+      updatedData.name = name;
+    }
+
+    if (username) {
+      updatedData.username = username;
+    }
+
+    if (age) {
+      updatedData.age = age;
+    }
+
+    if (img) {
+      updatedData.img = img;
+    }
     axios
-      .put(`http://localhost:5000/updateUser/${id}`, {
-        name: name,
-        username: username,
-        age: age,
-        img: img,
-      })
+      .put(`http://localhost:5000/updateUser/${id}`, updatedData)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         alert("Kullanıcu güncellendi.");
-        setName("");
-        setUsername("");
-        setAge("");
-        setImg("");
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteHandle = (id) => {
@@ -65,6 +74,7 @@ function UserPage() {
               <img src={user.img} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">İsim: {user.name}</h5>
+                <h5>Username: {user.username}</h5>
                 <h5>Yaş: {user.age}</h5>
                 <div>
                   <input

@@ -15,18 +15,6 @@ mongoose.connect(
   "mongodb+srv://admin:1234@cluster0.1b1s8ig.mongodb.net/user-app?retryWrites=true&w=majority"
 );
 
-app.put("/updateUser/:id", async (req, res) => {
-  const id = req.params.id;
-  const newUser = {
-    name: req.body.name,
-    username: req.body.username,
-    age: req.body.age,
-    img: req.body.img,
-  };
-  const updatedUser = await UserModel.findByIdAndUpdate(id, newUser);
-  res.json(updatedUser);
-});
-
 app.get("/getUsers", async (req, res) => {
   const users = await UserModel.find();
   res.json(users);
@@ -44,3 +32,38 @@ app.delete("/deleteUser/:id", async (req, res) => {
   await UserModel.findByIdAndDelete(id).exec();
   res.json("Başarılı.");
 });
+
+app.put("/updateUser/:id", async (req, res) => {
+  const id = req.params.id;
+  const newUser = {
+    name: req.body.name,
+    username: req.body.username,
+    age: req.body.age,
+    img: req.body.img,
+  };
+  const updatedUser = await UserModel.findByIdAndUpdate(id, newUser);
+  res.json(updatedUser);
+});
+
+// app.put("/updateUser/:id", async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const newUser = {
+//       name: req.body.name,
+//       username: req.body.username,
+//       age: req.body.age,
+//       img: req.body.img,
+//     };
+
+//     const updatedUser = await UserModel.findByIdAndUpdate(id, newUser);
+
+//     if (!updatedUser) {
+//       return res.status(404).json({ error: "Kullanıcı bulunamadı" });
+//     }
+
+//     res.json(updatedUser);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Sunucu hatası" });
+//   }
+// });
