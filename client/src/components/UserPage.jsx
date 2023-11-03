@@ -3,29 +3,34 @@ import axios from "axios";
 import Swal from "sweetalert2";
 function UserPage() {
   const [users, setUsers] = useState([]);
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
-  const [img, setImg] = useState("");
+  const [newName, setName] = useState("");
+  const [newUsername, setUsername] = useState("");
+  const [newAge, setAge] = useState("");
+  const [newImg, setImg] = useState("");
 
   const updateHandle = (id) => {
-    const updatedData = {};
+    const updatedData = {
+      name: newName,
+      username: newUsername,
+      age: newAge,
+      img: newImg,
+    };
 
-    if (name) {
-      updatedData.name = name;
-    }
+    // const updatedData = {};
 
-    if (username) {
-      updatedData.username = username;
-    }
+    // if (newName) {
+    //   updatedData.name = newName;
+    // }
+    // if (newUsername) {
+    //   updatedData.username = newUsername;
+    // }
+    // if (newAge) {
+    //   updatedData.age = newAge;
+    // }
+    // if (newImg) {
+    //   updatedData.img = newImg;
+    // }
 
-    if (age) {
-      updatedData.age = age;
-    }
-
-    if (img) {
-      updatedData.img = img;
-    }
     axios
       .put(`http://localhost:5000/updateUser/${id}`, updatedData)
       .then((res) => {
@@ -81,7 +86,6 @@ function UserPage() {
                     className="form-control my-1"
                     placeholder="name"
                     type="text"
-                    // value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                   <input
