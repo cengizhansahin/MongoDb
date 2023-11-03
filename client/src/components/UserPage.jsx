@@ -16,7 +16,14 @@ function UserPage() {
         age: age,
         img: img,
       })
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        console.log(res.data);
+        alert("Kullanıcu güncellendi.");
+        setName("");
+        setUsername("");
+        setAge("");
+        setImg("");
+      });
   };
 
   const deleteHandle = (id) => {
